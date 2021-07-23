@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="Description" content="Enter your description here" />
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="cc.css">
+	<title>On Scroll Circle Progress Bar</title>
+</head>
+
+<body>
+	<br><br><br>
+	<div class="wrapper">
+		<h1>on scroll circle progress bar</h1>
+	</div>
+	<br><br><br><br><br>
+
+	<div class="wrapper">
+		<div class="progress__area" data-wow-delay=".3s">
+			<div class="progress__item">
+				<svg class="radial-progress" data-countervalue="75" viewBox="0 0 80 80">
+					<circle class="bar-static" cx="40" cy="40" r="35"></circle>
+					<circle class="bar--animated count-1" cx="40" cy="40" r="35" style="stroke-dashoffset: 217.8;"></circle>
+					<text class="countervalue start" x="50%" y="57%" transform="matrix(0, 1, -1, 0, 80, 0)">75</text>
+				</svg>
+				<p class="progress__title">Adobe xd</p>
+			</div>
+			<div class="progress__item">
+				<svg class="radial-progress" data-countervalue="70" viewBox="0 0 80 80">
+					<circle class="bar-static" cx="40" cy="40" r="35"></circle>
+					<circle class="bar--animated count-2" cx="40" cy="40" r="35" style="stroke-dashoffset: 217.8;"></circle>
+					<text class="countervalue start" x="50%" y="57%" transform="matrix(0, 1, -1, 0, 80, 0)">70</text>
+					<p class="progress__title">Adobe Illustrator</p>
+				</svg>
+			</div>
+			<div class="progress__item">
+				<svg class="radial-progress" data-countervalue="95" viewBox="0 0 80 80">
+					<circle class="bar-static" cx="40" cy="40" r="35"></circle>
+					<circle class="bar--animated count-3" cx="40" cy="40" r="35" style="stroke-dashoffset: 217.8;"></circle>
+					<text class="countervalue start" x="50%" y="57%" transform="matrix(0, 1, -1, 0, 80, 0)">95</text>
+				</svg>
+				<p class="progress__title">Adobe Photoshop</p>
+			</div>
+
+			<div class="progress__item">
+				<svg class="radial-progress" data-countervalue="60" viewBox="0 0 80 80">
+					<circle class="bar-static" cx="40" cy="40" r="35"></circle>
+					<circle class="bar--animated count-4" cx="40" cy="40" r="35" style="stroke-dashoffset: 217.8;"></circle>
+					<text class="countervalue start" x="50%" y="57%" transform="matrix(0, 1, -1, 0, 80, 0)">60</text>
+				</svg>
+				<p class="progress__title">Adobe Indesign</p>
+			</div>
+			<div class="progress__item">
+				<svg class="radial-progress" data-countervalue="85" viewBox="0 0 80 80">
+					<circle class="bar-static" cx="40" cy="40" r="35"></circle>
+					<circle class="bar--animated count-5" cx="40" cy="40" r="35" style="stroke-dashoffset: 217.8;"></circle>
+					<text class="countervalue start" x="50%" y="57%" transform="matrix(0, 1, -1, 0, 80, 0)">85</text>
+				</svg>
+				<p class="progress__title">Adobe After Effects</p>
+			</div>
+		</div>
+	</div>
+	<br><br><br><br>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js'></script>
+	<script>
+		$(document).ready(function() {
+			function radial_animate() {
+				$('svg.radial-progress').each(function(index, value) {
+
+					$(this).find($('circle.bar--animated')).removeAttr('style');
+					// Get element in Veiw port
+					var elementTop = $(this).offset().top;
+					var elementBottom = elementTop + $(this).outerHeight();
+					var viewportTop = $(window).scrollTop();
+					var viewportBottom = viewportTop + $(window).height();
+
+					if (elementBottom > viewportTop && elementTop < viewportBottom) {
+						var percent = $(value).data('countervalue');
+						var radius = $(this).find($('circle.bar--animated')).attr('r');
+						var circumference = 2 * Math.PI * radius;
+						var strokeDashOffset = circumference - ((percent * circumference) / 100);
+						$(this).find($('circle.bar--animated')).animate({
+							'stroke-dashoffset': strokeDashOffset
+						}, 2800);
+					}
+				});
+			}
+			// To check If it is in Viewport 
+			var $window = $(window);
+
+			function check_if_in_view() {
+				$('.countervalue').each(function() {
+					if ($(this).hasClass('start')) {
+						var elementTop = $(this).offset().top;
+						var elementBottom = elementTop + $(this).outerHeight();
+
+						var viewportTop = $(window).scrollTop();
+						var viewportBottom = viewportTop + $(window).height();
+
+						if (elementBottom > viewportTop && elementTop < viewportBottom) {
+							$(this).removeClass('start');
+							$('.countervalue').text();
+							var myNumbers = $(this).text();
+							if (myNumbers == Math.floor(myNumbers)) {
+								$(this).animate({
+									Counter: $(this).text()
+								}, {
+									duration: 2800,
+									easing: 'swing',
+									step: function(now) {
+										$(this).text(Math.ceil(now) + '%');
+									}
+								});
+							} else {
+								$(this).animate({
+									Counter: $(this).text()
+								}, {
+									duration: 2800,
+									easing: 'swing',
+									step: function(now) {
+										$(this).text(now.toFixed(2) + '$');
+									}
+								});
+							}
+
+							radial_animate();
+						}
+					}
+				});
+			}
+
+			$window.on('scroll', check_if_in_view);
+			$window.on('load', check_if_in_view);
+		});
+
+	</script>
+</body>
+
+</html>

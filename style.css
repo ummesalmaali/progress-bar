@@ -1,0 +1,116 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+h1 {
+	font-size: 2.6rem;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+.wrapper {
+	max-width: 1140px;
+	margin: auto;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+/*==========================*/
+/*- CIRCLE PROGRESS BAR -*/
+/*==========================*/
+.progress__area {
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.progress__item {
+	margin: 2rem;
+}
+
+.progress__item .progress__title {
+	font-weight: 600;
+	font-size: 1.6rem;
+	color: #4a4a4a;
+	text-align: center;
+	margin-top: 2rem;
+}
+
+/*Main Progress Bar CSS*/
+svg.radial-progress {
+	height: auto;
+	max-width: 170px;
+	padding: 0;
+	-webkit-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+	width: 100%;
+	border-radius: 50%;
+}
+
+
+svg.radial-progress circle {
+	fill: transparent;
+	stroke: #FFFFFF;
+}
+
+svg.radial-progress circle.bar-static {
+	stroke: #E4E3E7;
+}
+svg.radial-progress circle.bar-static,
+svg.radial-progress circle.bar--animated {
+	stroke-width: 5px;
+}
+svg.radial-progress circle.bar--animated {
+	stroke-dasharray: 219.91148575129;
+	stroke-dashoffset: 219.91148575129;
+	stroke-linecap: round;
+}
+
+svg.radial-progress circle.bar--animated.count-1 {
+	stroke: #F6357E;
+}
+
+svg.radial-progress circle.bar--animated.count-2 {
+	stroke: #B122E5;
+}
+
+svg.radial-progress circle.bar--animated.count-3 {
+	stroke: #1270E3;
+}
+
+svg.radial-progress circle.bar--animated.count-4 {
+	stroke: #2CBFC7;
+}
+
+svg.radial-progress circle.bar--animated.count-5 {
+	stroke: #FF8359;
+}
+
+svg.radial-progress text {
+	fill: #5D5D5D;
+	font-size: 20px;
+	font-weight: 700;
+	text-anchor: middle;
+}
